@@ -130,6 +130,9 @@ class SteganographyApp(QWidget):
             }
         """)
 
+    def updateCharCount(self, text, label):
+        label.setText(f"Characters: {len(text)}")
+
     def refreshTab(self):
         current_tab = self.tabs.currentWidget()
         if current_tab == self.img_tab:
@@ -155,6 +158,10 @@ class SteganographyApp(QWidget):
         self.img_select_btn = QPushButton("SELECT IMAGE")
         self.img_message = QTextEdit()
         self.img_message.setPlaceholderText("Enter The Message To Be Encoded")
+        self.img_char_count = QLabel("Characters: 0")
+        self.img_message.textChanged.connect(
+            lambda: self.updateCharCount(self.img_message.toPlainText(), self.img_char_count)
+        )
 
         self.img_select_btn.clicked.connect(self.selectImageFile)
         self.img_encode_btn.clicked.connect(self.encodeImage)
@@ -166,6 +173,7 @@ class SteganographyApp(QWidget):
         layout.addWidget(self.img_select_btn)
         layout.addWidget(QLabel("MESSAGE TO ENCODE"))
         layout.addWidget(self.img_message)
+        layout.addWidget(self.img_char_count)
         layout.addWidget(self.img_encode_btn)
         layout.addWidget(self.img_decode_btn)
         layout.addWidget(self.img_refresh_btn)  # Added refresh button below decode
@@ -184,6 +192,10 @@ class SteganographyApp(QWidget):
         self.txt_select_btn = QPushButton("SELECT TEXT FILE")
         self.txt_message = QTextEdit()
         self.txt_message.setPlaceholderText("Enter The Message To Be Encoded")
+        self.txt_char_count = QLabel("Characters: 0")
+        self.txt_message.textChanged.connect(
+            lambda: self.updateCharCount(self.txt_message.toPlainText(), self.txt_char_count)
+        )
 
         self.txt_select_btn.clicked.connect(self.selectTextFile)
         self.txt_encode_btn.clicked.connect(self.encodeText)
@@ -195,6 +207,7 @@ class SteganographyApp(QWidget):
         layout.addWidget(self.txt_select_btn)
         layout.addWidget(QLabel("MESSAGE TO ENCODE"))
         layout.addWidget(self.txt_message)
+        layout.addWidget(self.txt_char_count)
         layout.addWidget(self.txt_encode_btn)
         layout.addWidget(self.txt_decode_btn)
         layout.addWidget(self.txt_refresh_btn)  # Added refresh button below decode
@@ -213,6 +226,10 @@ class SteganographyApp(QWidget):
         self.aud_select_btn = QPushButton("SELECT AUDIO FILE")
         self.aud_message = QTextEdit()
         self.aud_message.setPlaceholderText("Enter The Message To Be Encoded")
+        self.aud_char_count = QLabel("Characters: 0")
+        self.aud_message.textChanged.connect(
+            lambda: self.updateCharCount(self.aud_message.toPlainText(), self.aud_char_count)
+        )
 
         self.aud_select_btn.clicked.connect(self.selectAudioFile)
         self.aud_encode_btn.clicked.connect(self.encodeAudio)
@@ -224,6 +241,7 @@ class SteganographyApp(QWidget):
         layout.addWidget(self.aud_select_btn)
         layout.addWidget(QLabel("MESSAGE TO ENCODE"))
         layout.addWidget(self.aud_message)
+        layout.addWidget(self.aud_char_count)
         layout.addWidget(self.aud_encode_btn)
         layout.addWidget(self.aud_decode_btn)
         layout.addWidget(self.aud_refresh_btn)  # Added refresh button below decode
